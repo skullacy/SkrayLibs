@@ -73,18 +73,6 @@ public class PullToRefreshListView extends
 	}
 
 	@Override
-	public void setAdapter(ListAdapter adapter) {
-		super.setAdapter(adapter);
-	}
-
-	public void setAdapter(BaseAdapter adapter){
-		SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(new SwipeDismissAdapter(adapter, this));
-		swingBottonInAnimationAdapter.setInitialDelayMillis(3000);
-		swingBottonInAnimationAdapter.setAbsListView(mRefreshableView);
-		super.setAdapter(swingBottonInAnimationAdapter);
-	}
-
-	@Override
 	protected void onRefreshing(final boolean doScroll) {
 		/**
 		 * If we're not showing the Refreshing view, or the list is empty, the

@@ -79,7 +79,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	private Mode mMode = Mode.getDefault();
 
 	private Mode mCurrentMode;
-	T mRefreshableView;
+	protected T mRefreshableView;
 	private FrameLayout mRefreshableViewWrapper;
 
 	private boolean mShowViewWhileRefreshing = true;
