@@ -41,7 +41,7 @@ import com.handmark.pulltorefresh.library.internal.LoadingLayout;
 import com.skray.skraylibs.R;
 
 public class PullToRefreshListView extends
-		PullToRefreshAdapterViewBase<ListView> implements OnDismissCallback {
+		PullToRefreshAdapterViewBase<ListView> {
 
 	private LoadingLayout mHeaderLoadingView;
 	private LoadingLayout mFooterLoadingView;
@@ -356,12 +356,6 @@ public class PullToRefreshListView extends
 		public void setEmptyViewInternal(View emptyView) {
 			super.setEmptyView(emptyView);
 		}
-
-	}
-
-	@Override
-	public void onDismiss(AbsListView listView, int[] reverseSortedPositions) {
-		// TODO Auto-generated method stub
 
 	}
 
