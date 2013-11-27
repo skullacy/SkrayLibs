@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="sliding_selected_view"/>
+    
+    <item type="id" name="ptr_gridview" />
+    <item type="id" name="ptr_webview" />
+    <item type="id" name="ptr_scrollview" />
+</resources>
