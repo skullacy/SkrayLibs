@@ -17,10 +17,12 @@
 package com.capricorn;
 
 import com.skray.skraylibs.R;
+import com.skray.skraylibs.view.SkrayArcLayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,7 +45,7 @@ import android.widget.RelativeLayout;
  * 
  */
 public class ArcMenu extends RelativeLayout {
-    private ArcLayout mArcLayout;
+    private SkrayArcLayout mArcLayout;
 
     private ImageView mHintView;
 
@@ -54,6 +56,7 @@ public class ArcMenu extends RelativeLayout {
 
     public ArcMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
+        
         init(context);
         applyAttrs(attrs);
     }
@@ -62,7 +65,7 @@ public class ArcMenu extends RelativeLayout {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         li.inflate(R.layout.arc_menu, this);
 
-        mArcLayout = (ArcLayout) findViewById(R.id.item_layout);
+        mArcLayout = (SkrayArcLayout) findViewById(R.id.item_layout);
 
         final ViewGroup controlLayout = (ViewGroup) findViewById(R.id.control_layout);
         controlLayout.setClickable(true);
@@ -80,14 +83,18 @@ public class ArcMenu extends RelativeLayout {
         });
 
         mHintView = (ImageView) findViewById(R.id.control_hint);
+        Log.e("ArcMenu", "init() complete");
     }
 
     private void applyAttrs(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ArcLayout, 0, 0);
+            Log.e("TypedArray", a.toString());
 
             float fromDegrees = a.getFloat(R.styleable.ArcLayout_fromDegrees, ArcLayout.DEFAULT_FROM_DEGREES);
+            Log.e("fromDegrees", String.valueOf(fromDegrees));
             float toDegrees = a.getFloat(R.styleable.ArcLayout_toDegrees, ArcLayout.DEFAULT_TO_DEGREES);
+            Log.e("toDegrees", String.valueOf(toDegrees));
             mArcLayout.setArc(fromDegrees, toDegrees);
 
             int defaultChildSize = mArcLayout.getChildSize();

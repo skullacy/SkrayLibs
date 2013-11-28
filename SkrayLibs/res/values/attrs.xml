@@ -138,6 +138,13 @@
 		<declare-styleable name="RayLayout">
 			<attr name="leftHolderWidth" format="dimension" />
 		</declare-styleable>
+		
+		<declare-styleable name="SkrayArcMenu">
+		    <attr name="startDegree" format="float|reference" />
+		    <attr name="endDegree" format="float|reference" />
+		    <attr name="sateliteSize" format="float|reference" />
+		    <attr name="planetSize" format="float|reference" />
+		</declare-styleable>
 	<!-- Arcmenu attr end -->
     
     

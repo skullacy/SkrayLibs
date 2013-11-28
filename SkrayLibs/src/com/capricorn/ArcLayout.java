@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -46,26 +47,26 @@ public class ArcLayout extends ViewGroup {
     /**
      * children will be set the same size.
      */
-    private int mChildSize;
+    protected int mChildSize;
 
-    private int mChildPadding = 5;
+    protected int mChildPadding = 5;
 
-    private int mLayoutPadding = 10;
+    protected int mLayoutPadding = 10;
 
     public static final float DEFAULT_FROM_DEGREES = 270.0f;
 
     public static final float DEFAULT_TO_DEGREES = 360.0f;
 
-    private float mFromDegrees = DEFAULT_FROM_DEGREES;
+    protected float mFromDegrees = DEFAULT_FROM_DEGREES;
 
-    private float mToDegrees = DEFAULT_TO_DEGREES;
+    protected float mToDegrees = DEFAULT_TO_DEGREES;
 
-    private static final int MIN_RADIUS = 100;
+    protected static final int MIN_RADIUS = 100;
 
     /* the distance between the layout's center and any child's center */
-    private int mRadius;
+    protected int mRadius;
 
-    private boolean mExpanded = false;
+    protected boolean mExpanded = false;
 
     public ArcLayout(Context context) {
         super(context);
@@ -84,7 +85,7 @@ public class ArcLayout extends ViewGroup {
         }
     }
 
-    private static int computeRadius(final float arcDegrees, final int childCount, final int childSize,
+    protected static int computeRadius(final float arcDegrees, final int childCount, final int childSize,
             final int childPadding, final int minRadius) {
         if (childCount < 2) {
             return minRadius;
@@ -99,7 +100,7 @@ public class ArcLayout extends ViewGroup {
         return Math.max(radius, minRadius);
     }
 
-    private static Rect computeChildFrame(final int centerX, final int centerY, final int radius, final float degrees,
+    protected static Rect computeChildFrame(final int centerX, final int centerY, final int radius, final float degrees,
             final int size) {
 
         final double childCenterX = centerX + radius * Math.cos(Math.toRadians(degrees));
@@ -113,6 +114,7 @@ public class ArcLayout extends ViewGroup {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int radius = mRadius = computeRadius(Math.abs(mToDegrees - mFromDegrees), getChildCount(), mChildSize,
                 mChildPadding, MIN_RADIUS);
+        Log.e("radius", "radius : "+String.valueOf(radius));
         final int size = radius * 2 + mChildSize + mChildPadding + mLayoutPadding * 2;
 
         setMeasuredDimension(size, size);
@@ -126,6 +128,7 @@ public class ArcLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    	Log.e("onLayout", String.format("Left : %d , Top : %d, Right : %d, Bottom : %d  ", l,t,r,b));
         final int centerX = getWidth() / 2;
         final int centerY = getHeight() / 2;
         final int radius = mExpanded ? mRadius : 0;
@@ -144,7 +147,7 @@ public class ArcLayout extends ViewGroup {
     /**
      * refers to {@link LayoutAnimationController#getDelayForView(View view)}
      */
-    private static long computeStartOffset(final int childCount, final boolean expanded, final int index,
+    protected static long computeStartOffset(final int childCount, final boolean expanded, final int index,
             final float delayPercent, final long duration, Interpolator interpolator) {
         final float delay = delayPercent * duration;
         final long viewDelay = (long) (getTransformedIndex(expanded, childCount, index) * delay);
@@ -156,7 +159,7 @@ public class ArcLayout extends ViewGroup {
         return (long) (normalizedDelay * totalDelay);
     }
 
-    private static int getTransformedIndex(final boolean expanded, final int count, final int index) {
+    protected static int getTransformedIndex(final boolean expanded, final int count, final int index) {
         if (expanded) {
             return count - 1 - index;
         }
@@ -164,7 +167,7 @@ public class ArcLayout extends ViewGroup {
         return index;
     }
 
-    private static Animation createExpandAnimation(float fromXDelta, float toXDelta, float fromYDelta, float toYDelta,
+    protected static Animation createExpandAnimation(float fromXDelta, float toXDelta, float fromYDelta, float toYDelta,
             long startOffset, long duration, Interpolator interpolator) {
         Animation animation = new RotateAndTranslateAnimation(0, toXDelta, 0, toYDelta, 0, 720);
         animation.setStartOffset(startOffset);
@@ -175,7 +178,7 @@ public class ArcLayout extends ViewGroup {
         return animation;
     }
 
-    private static Animation createShrinkAnimation(float fromXDelta, float toXDelta, float fromYDelta, float toYDelta,
+    protected static Animation createShrinkAnimation(float fromXDelta, float toXDelta, float fromYDelta, float toYDelta,
             long startOffset, long duration, Interpolator interpolator) {
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.setFillAfter(true);
@@ -201,7 +204,7 @@ public class ArcLayout extends ViewGroup {
         return animationSet;
     }
 
-    private void bindChildAnimation(final View child, final int index, final long duration) {
+    protected void bindChildAnimation(final View child, final int index, final long duration) {
         final boolean expanded = mExpanded;
         final int centerX = getWidth() / 2;
         final int centerY = getHeight() / 2;
@@ -301,7 +304,7 @@ public class ArcLayout extends ViewGroup {
         invalidate();
     }
 
-    private void onAllAnimationsEnd() {
+    public void onAllAnimationsEnd() {
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             getChildAt(i).clearAnimation();
