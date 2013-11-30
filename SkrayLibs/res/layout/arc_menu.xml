@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/composer_button" >
+         >
 
         <ImageView
             android:id="@+id/control_hint"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:duplicateParentState="true"
-            android:src="@drawable/composer_icn_plus" />
+            android:src="@drawable/align_button" />
     </FrameLayout>
 	    
     

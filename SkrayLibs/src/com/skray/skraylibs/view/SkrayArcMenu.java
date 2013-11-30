@@ -16,4 +16,7 @@ public class SkrayArcMenu extends ArcMenu{
         super(context, attrs);
     }
     
+    public void changePlanetImage(int id){
+    	mHintView.setImageResource(id);
+    }
 }

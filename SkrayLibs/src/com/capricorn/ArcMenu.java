@@ -47,7 +47,7 @@ import android.widget.RelativeLayout;
 public class ArcMenu extends RelativeLayout {
     private SkrayArcLayout mArcLayout;
 
-    private ImageView mHintView;
+    protected ImageView mHintView;
 
     public ArcMenu(Context context) {
         super(context);
@@ -198,4 +198,5 @@ public class ArcMenu extends RelativeLayout {
 
         return animation;
     }
+    
 }
