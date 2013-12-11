@@ -35,7 +35,7 @@ public class SkrayListView extends PullToRefreshListView{
 	}
 	
 	public void setAdapter(BaseAdapter adapter){
-		SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(new SwipeDismissAdapter(adapter, this.dismissCallback));
+		SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
 		swingBottonInAnimationAdapter.setInitialDelayMillis(3000);
 		swingBottonInAnimationAdapter.setAbsListView(mRefreshableView);
 		super.setAdapter(swingBottonInAnimationAdapter);
