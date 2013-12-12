@@ -4,15 +4,18 @@ import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 import com.haarman.listviewanimations.itemmanipulation.SwipeDismissAdapter;
 import com.haarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.skray.skraylibs.utils.SkrayUtils;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
 public class SkrayListView extends PullToRefreshListView{
 	
 	OnDismissCallback dismissCallback;
+	OnItemClickListener itemClickCallback;
 	
 	public SkrayListView(Context context) {
 		super(context);
@@ -34,6 +37,15 @@ public class SkrayListView extends PullToRefreshListView{
 		this.dismissCallback = callback;
 	}
 	
+	
+	
+	@Override
+	public void setOnItemClickListener(OnItemClickListener listener) {
+		Log.e("onItemclicklistener in skraylistview", listener.toString());
+//		mRefreshableView.setOnItemClickListener(listener);
+		super.setOnItemClickListener(listener);
+	}
+
 	public void setAdapter(BaseAdapter adapter){
 		SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
 		swingBottonInAnimationAdapter.setInitialDelayMillis(3000);
