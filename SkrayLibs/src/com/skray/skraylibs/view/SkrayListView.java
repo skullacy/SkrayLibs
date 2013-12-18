@@ -17,6 +17,8 @@ public class SkrayListView extends PullToRefreshListView{
 	OnDismissCallback dismissCallback;
 	OnItemClickListener itemClickCallback;
 	
+	private Boolean _activateListViewAnimation = true;
+	
 	public SkrayListView(Context context) {
 		super(context);
 	}
@@ -37,6 +39,10 @@ public class SkrayListView extends PullToRefreshListView{
 		this.dismissCallback = callback;
 	}
 	
+	public void setListViewAnimation(Boolean value) {
+		this._activateListViewAnimation = value;
+	}
+	
 	
 	
 	@Override
@@ -47,10 +53,17 @@ public class SkrayListView extends PullToRefreshListView{
 	}
 
 	public void setAdapter(BaseAdapter adapter){
-		SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
-		swingBottonInAnimationAdapter.setInitialDelayMillis(3000);
-		swingBottonInAnimationAdapter.setAbsListView(mRefreshableView);
-		super.setAdapter(swingBottonInAnimationAdapter);
+		if(this._activateListViewAnimation) {
+			SwingBottomInAnimationAdapter swingBottonInAnimationAdapter = new SwingBottomInAnimationAdapter(adapter);
+			swingBottonInAnimationAdapter.setInitialDelayMillis(3000);
+			swingBottonInAnimationAdapter.setAbsListView(mRefreshableView);
+			super.setAdapter(swingBottonInAnimationAdapter);
+		}
+		else {
+			super.setAdapter(adapter);
+		}
+		
+		
 	}
 
 }

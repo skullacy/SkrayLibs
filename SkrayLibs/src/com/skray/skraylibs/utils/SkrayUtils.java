@@ -87,6 +87,7 @@ public class SkrayUtils {
 
         int totalHeight = 0;
         int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(), MeasureSpec.AT_MOST);
+        Log.e("setListViewHeight", String.valueOf(listAdapter.getCount()));
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
