@@ -117,7 +117,7 @@ public class CommServer {
 	}
 	public void initWithoutContext(String url, ArrayList<NameValuePair> params) {
 		showProgressDialog = false;
-		params = (params != null) ? params : new ArrayList<NameValuePair>();
+		this.params = (params != null) ? params : new ArrayList<NameValuePair>();
 		
 		setServerUrl(url);
 	}
@@ -163,7 +163,10 @@ public class CommServer {
 		return this;
 	}
 	
-	
+	public CommServer setParam(List<NameValuePair> params) {
+		this.params = params;
+		return this;
+	}
 	
 	public CommServer setParam(String query, String value){
 		params.add(new BasicNameValuePair(query, value));
