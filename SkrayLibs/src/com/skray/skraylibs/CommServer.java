@@ -64,6 +64,7 @@ public class CommServer {
 	
 	public interface onGetResponse{
 		void getResponse(String result);
+		void getUIResponse(String result);
 	}
 	private onGetResponse resCallback;
 	
@@ -352,6 +353,9 @@ public class CommServer {
 			String data = null;
 			try{
 				data = params[0].getData();
+				if(resCallback != null){
+					resCallback.getResponse(data);
+				}
 			}
 			catch(Exception e){
 				skraylog("EXCEPTION in ASYNCTASK");
@@ -364,7 +368,7 @@ public class CommServer {
 		protected void onPostExecute(String result){
 			handleProgressComplete();
 			if(resCallback != null){
-				resCallback.getResponse(result);
+				resCallback.getUIResponse(result);
 			}
 			super.onPostExecute(result);
 			
