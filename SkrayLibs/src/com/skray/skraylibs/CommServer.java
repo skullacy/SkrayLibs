@@ -43,9 +43,6 @@ import android.util.Log;
  * @author skullacy
  * Communicate Server with JSON
  * 
- * @memo
- * TimeoutException, UnknownHostException µî ¿¹¿ÜÃ³¸®±¸¹® Ãß°¡Áß
- * ÆÄÀÏ¾÷·Îµå Ã³¸® ¹Ì±¸Çö
  * 
  * 
  */
@@ -81,7 +78,7 @@ public class CommServer {
 	AlertDialog.Builder alertDialog;
 		
 	/**
-	 * Constructors
+	 * Constructors with context
 	 */
 	public CommServer(Context context, String url, int timeout){
 		init(context, url, timeout);
@@ -92,14 +89,13 @@ public class CommServer {
 	public CommServer(Context context){
 		init(context, DEFAULT_SITE_URL, SET_TIMEOUT_DEFAULT);
 	}
-	
 	public void init(Context context, String url, int timeout){
 		this.context = context;
 		this.timeout = timeout;
 		
 		pDialog = new ProgressDialog(context);
 		pDialog.setTitle("");
-		pDialog.setMessage("¼­¹ö¿¡ ¿äÃ»ÁßÀÔ´Ï´Ù.");
+		pDialog.setMessage("ë¡œë”©ì¤‘...");
 		
 		params = new ArrayList<NameValuePair>();
 		showProgressDialog = true;
@@ -108,6 +104,24 @@ public class CommServer {
 			setServerUrl(url);
 		}
 	}
+	
+	
+	/**
+	 * Constructors without context
+	 */
+	public CommServer(String url) {
+		initWithoutContext(url, null);
+	}
+	public CommServer(String url, ArrayList<NameValuePair> params) {
+		initWithoutContext(url, params);
+	}
+	public void initWithoutContext(String url, ArrayList<NameValuePair> params) {
+		showProgressDialog = false;
+		params = (params != null) ? params : new ArrayList<NameValuePair>();
+		
+		setServerUrl(url);
+	}
+	
 	
 	/**
 	 * Print Logs
@@ -148,7 +162,8 @@ public class CommServer {
 		this.timeout = timeout;
 		return this;
 	}
-
+	
+	
 	
 	public CommServer setParam(String query, String value){
 		params.add(new BasicNameValuePair(query, value));
@@ -181,7 +196,7 @@ public class CommServer {
 			progCallback.onProgress();
 		}
 		else{
-			showProgressDialog();
+			if(this.showProgressDialog) showProgressDialog();
 		}
 	}
 	public void handleProgressComplete(){
@@ -189,7 +204,7 @@ public class CommServer {
 			progCallback.onComplete();
 		}
 		else{
-			hideProgressDialog();
+			if(this.showProgressDialog) hideProgressDialog();
 		}
 	}
 	
